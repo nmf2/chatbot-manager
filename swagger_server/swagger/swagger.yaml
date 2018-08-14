@@ -1,0 +1,213 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a simple API"
+  version: "1.0.0"
+  title: "Simple Inventory API"
+  contact:
+    email: "nmf2@cin.ufpe.br"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "virtserver.swaggerhub.com"
+basePath: "/nmf21/ChatbotManager/1.0.0"
+tags:
+- name: "Creation"
+  description: "Create a chatbot"
+- name: "Info"
+  description: "Get information about a chatbot"
+- name: "Management"
+  description: "Manage the status of chatbots"
+schemes:
+- "https"
+- "http"
+paths:
+  /chatbot:
+    post:
+      tags:
+      - "Creation"
+      summary: "Creates a chatbot"
+      description: "Creates a chatbot with a name (id) and description.\n"
+      operationId: "chatbot_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "chatbot"
+        description: "JSON object describing the chatbot to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/ChatbotBasicInfo"
+      responses:
+        201:
+          description: "chatbot created successfully"
+          schema:
+            $ref: "#/definitions/ChatbotFullInfo"
+        400:
+          description: "bad body input"
+        409:
+          description: "a chatbot with the same id already exists"
+        500:
+          description: "unknown error, contact developer."
+      x-swagger-router-controller: "swagger_server.controllers.creation_controller"
+  /chatbot/{id}:
+    get:
+      tags:
+      - "Info"
+      summary: "Get info about some chatbot"
+      description: "By using the correct parameters get information about a particular\
+        \ chatbot"
+      operationId: "chatbot_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Name of the chatbot to query"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "chatbot found"
+          schema:
+            $ref: "#/definitions/ChatbotFullInfo"
+        400:
+          description: "invalid input, maybe lacking parameters"
+        404:
+          description: "chatbot not found"
+        500:
+          description: "unknown error, contact developer"
+      x-swagger-router-controller: "swagger_server.controllers.info_controller"
+    delete:
+      tags:
+      - "Management"
+      summary: "Deletes a chatbot"
+      description: "Use the chatbot name to delete it"
+      operationId: "chatbot_id_delete"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Name of the chatbot to delete"
+        required: true
+        type: "string"
+      - name: "delete"
+        in: "query"
+        description: "JSON to confirm removing the chatbot"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK, Chatbot Deleted"
+        404:
+          description: "Chatbot Not Found"
+      x-swagger-router-controller: "swagger_server.controllers.management_controller"
+  /chatbot/{id}/status:
+    get:
+      tags:
+      - "Info"
+      summary: "Check if the chatbot is running"
+      description: "Checks if the chatbot is currently running"
+      operationId: "chatbot_id_status_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Name of the chatbot to change the status"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            properties:
+              running:
+                type: "boolean"
+                example: true
+      x-swagger-router-controller: "swagger_server.controllers.info_controller"
+    post:
+      tags:
+      - "Management"
+      summary: "Request a status change of the chatbot"
+      description: "Use this to start or stop the chatbot"
+      operationId: "chatbot_id_status_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Name of the chatbot to change the status"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "JSON altering the \"running\" paramenter of the chatbot"
+        required: true
+        schema:
+          $ref: "#/definitions/body"
+      responses:
+        200:
+          description: "OK, Chatbot Running"
+          schema:
+            $ref: "#/definitions/ChatbotFullInfo"
+        400:
+          description: "Bad request"
+        404:
+          description: "Chatbot Not Found"
+      x-swagger-router-controller: "swagger_server.controllers.management_controller"
+definitions:
+  ChatbotBasicInfo:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "string"
+        example: "chatbotName"
+      descrption:
+        type: "string"
+        example: "This chatbot does this and is owned by that."
+    example:
+      descrption: "This chatbot does this and is owned by that."
+      id: "chatbotName"
+  ChatbotFullInfo:
+    type: "object"
+    required:
+    - "created"
+    - "id"
+    properties:
+      running:
+        type: "boolean"
+        example: true
+      created:
+        type: "string"
+        format: "date-time"
+        example: "2017-07-21T17:32:28Z"
+      descrption:
+        type: "string"
+        example: "This chatbot does this and is owned by that."
+      id:
+        type: "string"
+        example: "chatbotName"
+      address:
+        type: "string"
+        example: "0.0.0.0:8081"
+    example:
+      running: true
+      address: "0.0.0.0:8081"
+      created: "2017-07-21T17:32:28Z"
+      descrption: "This chatbot does this and is owned by that."
+      id: "chatbotName"
+  body:
+    properties:
+      running:
+        type: "boolean"
+        example: true
