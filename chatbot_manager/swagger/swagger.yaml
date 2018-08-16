@@ -172,11 +172,11 @@ definitions:
       id:
         type: "string"
         example: "chatbotName"
-      descrption:
+      description:
         type: "string"
         example: "This chatbot does this and is owned by that."
     example:
-      descrption: "This chatbot does this and is owned by that."
+      description: "This chatbot does this and is owned by that."
       id: "chatbotName"
   ChatbotFullInfo:
     type: "object"
@@ -204,7 +204,7 @@ definitions:
       running: true
       address: "0.0.0.0:8081"
       created: "2017-07-21T17:32:28Z"
-      descrption: "This chatbot does this and is owned by that."
+      description: "This chatbot does this and is owned by that."
       id: "chatbotName"
   body:
     properties:

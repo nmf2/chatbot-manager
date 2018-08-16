@@ -15,26 +15,26 @@ class ChatbotBasicInfo(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, id: str=None, descrption: str=None):  # noqa: E501
+    def __init__(self, id: str=None, description: str=None):  # noqa: E501
         """ChatbotBasicInfo - a model defined in Swagger
 
         :param id: The id of this ChatbotBasicInfo.  # noqa: E501
         :type id: str
-        :param descrption: The descrption of this ChatbotBasicInfo.  # noqa: E501
-        :type descrption: str
+        :param description: The description of this ChatbotBasicInfo.  # noqa: E501
+        :type description: str
         """
         self.swagger_types = {
             'id': str,
-            'descrption': str
+            'description': str
         }
 
         self.attribute_map = {
             'id': 'id',
-            'descrption': 'descrption'
+            'description': 'description'
         }
 
         self._id = id
-        self._descrption = descrption
+        self._description = description
 
     @classmethod
     def from_dict(cls, dikt) -> 'ChatbotBasicInfo':
@@ -71,22 +71,22 @@ class ChatbotBasicInfo(Model):
         self._id = id
 
     @property
-    def descrption(self) -> str:
-        """Gets the descrption of this ChatbotBasicInfo.
+    def description(self) -> str:
+        """Gets the description of this ChatbotBasicInfo.
 
 
-        :return: The descrption of this ChatbotBasicInfo.
+        :return: The description of this ChatbotBasicInfo.
         :rtype: str
         """
-        return self._descrption
+        return self._description
 
-    @descrption.setter
-    def descrption(self, descrption: str):
-        """Sets the descrption of this ChatbotBasicInfo.
+    @description.setter
+    def description(self, description: str):
+        """Sets the description of this ChatbotBasicInfo.
 
 
-        :param descrption: The descrption of this ChatbotBasicInfo.
-        :type descrption: str
+        :param description: The description of this ChatbotBasicInfo.
+        :type description: str
         """
 
-        self._descrption = descrption
+        self._description = description

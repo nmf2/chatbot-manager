@@ -15,7 +15,8 @@ class ChatbotFullInfo(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, running: bool=None, created: datetime=None, description: str=None, id: str=None, address: str=None):  # noqa: E501
+    def __init__(self, running: bool=None, created: datetime=None,
+                 description: str=None, id: str=None, address: str=None):  # noqa: E501
         """ChatbotFullInfo - a model defined in Swagger
 
         :param running: The running of this ChatbotFullInfo.  # noqa: E501
