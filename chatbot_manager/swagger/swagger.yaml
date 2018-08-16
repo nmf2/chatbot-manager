@@ -51,7 +51,7 @@ paths:
           description: "a chatbot with the same id already exists"
         500:
           description: "unknown error, contact developer."
-      x-swagger-router-controller: "swagger_server.controllers.creation_controller"
+      x-swagger-router-controller: "chatbot_manager.controllers.creation_controller"
   /chatbot/{id}:
     get:
       tags:
@@ -79,7 +79,7 @@ paths:
           description: "chatbot not found"
         500:
           description: "unknown error, contact developer"
-      x-swagger-router-controller: "swagger_server.controllers.info_controller"
+      x-swagger-router-controller: "chatbot_manager.controllers.info_controller"
     delete:
       tags:
       - "Management"
@@ -106,7 +106,7 @@ paths:
           description: "OK, Chatbot Deleted"
         404:
           description: "Chatbot Not Found"
-      x-swagger-router-controller: "swagger_server.controllers.management_controller"
+      x-swagger-router-controller: "chatbot_manager.controllers.management_controller"
   /chatbot/{id}/status:
     get:
       tags:
@@ -130,7 +130,7 @@ paths:
               running:
                 type: "boolean"
                 example: true
-      x-swagger-router-controller: "swagger_server.controllers.info_controller"
+      x-swagger-router-controller: "chatbot_manager.controllers.info_controller"
     post:
       tags:
       - "Management"
@@ -162,7 +162,7 @@ paths:
           description: "Bad request"
         404:
           description: "Chatbot Not Found"
-      x-swagger-router-controller: "swagger_server.controllers.management_controller"
+      x-swagger-router-controller: "chatbot_manager.controllers.management_controller"
 definitions:
   ChatbotBasicInfo:
     type: "object"

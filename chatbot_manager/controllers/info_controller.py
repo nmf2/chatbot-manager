@@ -1,9 +1,8 @@
 import connexion
 import six
 
-from swagger_server.models.chatbot_full_info import ChatbotFullInfo  # noqa: E501
-from swagger_server.models.errorunknown import ERRORUNKNOWN  # noqa: E501
-from swagger_server import util
+from chatbot_manager.models.chatbot_full_info import ChatbotFullInfo  # noqa: E501
+from chatbot_manager import util
 
 
 def chatbot_id_get(id):  # noqa: E501

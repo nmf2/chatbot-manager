@@ -1,15 +1,24 @@
 #!/usr/bin/env python3
 
 import connexion
+import socket
 
-from swagger_server import encoder
+from chatbot_manager import encoder
+
+
+def get_port():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(('localhost', 0))
+    port = sock.getsockname()[1]
+    sock.close()
+    return port
 
 
 def main():
     app = connexion.App(__name__, specification_dir='./swagger/')
     app.app.json_encoder = encoder.JSONEncoder
     app.add_api('swagger.yaml', arguments={'title': 'Simple Inventory API'})
-    app.run(port=8080)
+    app.run(port=get_port())
 
 
 if __name__ == '__main__':

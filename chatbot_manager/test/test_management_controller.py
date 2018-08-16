@@ -5,9 +5,9 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.body import Body  # noqa: E501
-from swagger_server.models.chatbot_full_info import ChatbotFullInfo  # noqa: E501
-from swagger_server.test import BaseTestCase
+from chatbot_manager.models.body import Body  # noqa: E501
+from chatbot_manager.models.chatbot_full_info import ChatbotFullInfo  # noqa: E501
+from chatbot_manager.test import BaseTestCase
 
 
 class TestManagementController(BaseTestCase):
