@@ -15,15 +15,15 @@ class ChatbotFullInfo(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, running: bool=None, created: datetime=None, descrption: str=None, id: str=None, address: str=None):  # noqa: E501
+    def __init__(self, running: bool=None, created: datetime=None, description: str=None, id: str=None, address: str=None):  # noqa: E501
         """ChatbotFullInfo - a model defined in Swagger
 
         :param running: The running of this ChatbotFullInfo.  # noqa: E501
         :type running: bool
         :param created: The created of this ChatbotFullInfo.  # noqa: E501
         :type created: datetime
-        :param descrption: The descrption of this ChatbotFullInfo.  # noqa: E501
-        :type descrption: str
+        :param description: The description of this ChatbotFullInfo.  # noqa: E501
+        :type description: str
         :param id: The id of this ChatbotFullInfo.  # noqa: E501
         :type id: str
         :param address: The address of this ChatbotFullInfo.  # noqa: E501
@@ -32,7 +32,7 @@ class ChatbotFullInfo(Model):
         self.swagger_types = {
             'running': bool,
             'created': datetime,
-            'descrption': str,
+            'description': str,
             'id': str,
             'address': str
         }
@@ -40,14 +40,14 @@ class ChatbotFullInfo(Model):
         self.attribute_map = {
             'running': 'running',
             'created': 'created',
-            'descrption': 'descrption',
+            'description': 'description',
             'id': 'id',
             'address': 'address'
         }
 
         self._running = running
         self._created = created
-        self._descrption = descrption
+        self._description = description
         self._id = id
         self._address = address
 
@@ -107,25 +107,25 @@ class ChatbotFullInfo(Model):
         self._created = created
 
     @property
-    def descrption(self) -> str:
-        """Gets the descrption of this ChatbotFullInfo.
+    def description(self) -> str:
+        """Gets the description of this ChatbotFullInfo.
 
 
-        :return: The descrption of this ChatbotFullInfo.
+        :return: The description of this ChatbotFullInfo.
         :rtype: str
         """
-        return self._descrption
+        return self._description
 
-    @descrption.setter
-    def descrption(self, descrption: str):
-        """Sets the descrption of this ChatbotFullInfo.
+    @description.setter
+    def description(self, description: str):
+        """Sets the description of this ChatbotFullInfo.
 
 
-        :param descrption: The descrption of this ChatbotFullInfo.
-        :type descrption: str
+        :param description: The description of this ChatbotFullInfo.
+        :type description: str
         """
 
-        self._descrption = descrption
+        self._description = description
 
     @property
     def id(self) -> str:
