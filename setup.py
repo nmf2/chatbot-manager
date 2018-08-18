@@ -1,6 +1,5 @@
 # coding: utf-8
 
-import sys
 from setuptools import setup, find_packages
 
 NAME = "chatbot_manager"
@@ -18,18 +17,17 @@ REQUIRES = ["connexion"]
 setup(
     name=NAME,
     version=VERSION,
-    description="Simple Inventory API",
+    description="API to manage chatbots",
+    zip_safe=False,
     author_email="nmf2@cin.ufpe.br",
     url="",
-    keywords=["Swagger", "Simple Inventory API"],
+    keywords=["Swagger", "Chatbot Manager"],
     install_requires=REQUIRES,
     packages=find_packages(),
-    package_data={'': ['swagger/swagger.yaml']},
-    include_package_data=True,
+    package_data={'': ['swagger/swagger.yaml', 'docker-compose.template.yml']},
     entry_points={
         'console_scripts': ['chatbot_manager=chatbot_manager.__main__:main']},
     long_description="""\
-    This is a simple API
+    This is a API to create and manage chatbots in docker containers
     """
 )
-

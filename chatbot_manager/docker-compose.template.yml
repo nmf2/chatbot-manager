@@ -1,0 +1,35 @@
+version: '3'
+services:
+  chatbot:
+    stdin_open: true
+    tty: true
+    image: nmf2/chatbot-api:latest
+    container_name: ${CHATBOT_NAME}
+    ports:
+     - 8080
+    networks:
+     - ${CHATBOT_NAME}
+    volumes:
+     - ${CHATBOT_PATH}/:/root/.bot/
+  db:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.4
+    expose:
+     - 9200
+     - 9300
+    container_name: elasticsearch_${CHATBOT_NAME}
+    sysctls:
+        - vm.max_map_count=262144
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ${ES_PATH}/:/root/elasticsearch/
+    networks:
+      - ${CHATBOT_NAME}
+networks:
+  ${CHATBOT_NAME}:
