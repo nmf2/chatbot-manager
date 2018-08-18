@@ -2,6 +2,8 @@ import datetime
 
 import six
 import typing
+from pathlib import Path
+import pkg_resources
 
 
 def _deserialize(data, klass):
@@ -139,3 +141,25 @@ def _deserialize_dict(data, boxed_type):
     """
     return {k: _deserialize(v, boxed_type)
             for k, v in six.iteritems(data)}
+
+
+def get_base_path(chatbot):
+    return Path('~').expanduser() / Path('.bots/' + chatbot + '/chatbot')
+
+
+def create_docker_compose(chatbot):
+    # Get template from package
+    package = 'chatbot_manager'
+    resource = 'docker-compose.template.yml'
+    template = pkg_resources.resource_string(package, resource)
+    template = str(template, 'ascii')
+
+    # Create file from template
+    path = get_base_path(chatbot)
+    data = template.replace("${CHATBOT_NAME}", chatbot) \
+                   .replace("${CHATBOT_PATH}", str(path)) \
+                   .replace("${ES_PATH}", str(path.parent) + '/elasticsearch')
+
+    path = path.parent / Path('docker-compose.yml')
+    with path.open(mode='w+') as file:
+        file.write(data)

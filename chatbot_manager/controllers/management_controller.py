@@ -1,5 +1,4 @@
 import connexion
-import six
 
 from chatbot_manager.models.body import Body  # noqa: E501
 from chatbot_manager.models.chatbot_full_info import ChatbotFullInfo  # noqa: E501

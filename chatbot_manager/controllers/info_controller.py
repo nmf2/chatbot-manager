@@ -1,8 +1,7 @@
-import connexion
-import six
-
 from chatbot_manager.models.chatbot_full_info import ChatbotFullInfo  # noqa: E501
-from chatbot_manager import util
+from pathlib import Path
+import json
+from chatbot_manager.util import get_base_path
 
 
 def chatbot_id_get(id):  # noqa: E501
@@ -15,7 +14,22 @@ def chatbot_id_get(id):  # noqa: E501
 
     :rtype: ChatbotFullInfo
     """
-    return 'do some magic!'
+    try:
+        base = get_base_path(id)
+        print(base)
+        if not base.exists():
+            res = "chatbot not found"
+            code = 404
+        else:
+            path = base / Path('info.json')
+            with path.open('r') as info_file:
+                chatbot = json.load(info_file)
+            res = ChatbotFullInfo(**chatbot)
+            code = 200
+    except:
+        res = "unknown error, contact developer"
+        code = 500
+    return res, code
 
 
 def chatbot_id_status_get(id):  # noqa: E501
@@ -28,4 +42,10 @@ def chatbot_id_status_get(id):  # noqa: E501
 
     :rtype: ERRORUNKNOWN
     """
-    return 'do some magic!'
+
+    res, code = chatbot_id_get(id)
+    if type(res) == ChatbotFullInfo:
+        info = res.to_dict()
+        res = {'running': info['running']}
+
+    return res, code
