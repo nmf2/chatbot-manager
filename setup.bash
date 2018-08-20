@@ -18,13 +18,9 @@ ensure_installed docker docker-compose
 printf "\nAll requisistes are installed.\n\n"
 
 printf "Getting docker images\n\n"
-docker pull nmf2/eva
-docker pull nmf2/chatbot-api
+docker pull nmf2/eva:latest
+docker pull nmf2/chatbot-api:latest
 docker pull docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.4
 
-printf "Creating ~/.chatbot-manager folder\n\n"
-cd ~
-mkdir .chatbot-manager
-cd .chatbot-manager
-
-printf ""
+printf "Please install PIP in your distribution.\n\n\
+        e.g (Ubuntu/Debian) sudo apt-get install python3-pip"
