@@ -56,7 +56,7 @@ def chatbot_id_status_post(id, body):  # noqa: E501
             code = 404
         elif body["running"] is True:  
             path = str(base.parent) + '/docker-compose.yml'
-            print("docker-compose up -d -f {}".format(path).split())
+            #print("docker-compose up -d -f {}".format(path).split())
             subprocess.call("docker-compose -f {} up -d".format(path).split())
 
             bot, es = _get_containers(id)
@@ -122,8 +122,3 @@ def _stop_chatbot(chatbot, force=False):
     util.update_info_file(info_file, address='', running=False)
 
     return bot, es
-
-
-# Testing
-
-print(chatbot_id_status_post('botcin', {'running': False}))
