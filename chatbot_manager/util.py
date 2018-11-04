@@ -4,6 +4,7 @@ import six
 import typing
 from pathlib import Path
 import pkg_resources
+import json
 
 
 def _deserialize(data, klass):
@@ -163,3 +164,25 @@ def create_docker_compose(chatbot):
     path = path.parent / Path('docker-compose.yml')
     with path.open(mode='w+') as file:
         file.write(data)
+
+
+def get_info_file(chatbot, glob=False):
+    if glob:
+        base = get_base_path(chatbot).parent  # Directory before /chatbot
+    else:
+        base = get_base_path(chatbot)
+
+    path = base / Path('info.json')
+
+    return path
+
+
+def update_info_file(path, **kwargs):
+    with path.open('r') as file:
+        info = json.load(file)
+
+    for key in kwargs:
+        info[key] = kwargs[key]
+
+    with path.open('w') as file:
+        json.dump(info, file, indent=4)

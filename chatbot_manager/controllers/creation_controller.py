@@ -2,7 +2,7 @@ from pathlib import Path
 from datetime import datetime
 import json
 from chatbot_manager.models.chatbot_full_info import ChatbotFullInfo  # noqa: E501
-from chatbot_manager.util import get_base_path, create_docker_compose
+from chatbot_manager import util
 
 
 def chatbot_post(chatbot):  # noqa: E501
@@ -16,16 +16,16 @@ def chatbot_post(chatbot):  # noqa: E501
     :rtype: ChatbotFullInfo
     """
     try:
-        base = get_base_path(chatbot['id'])
+        base = util.get_base_path(chatbot['id'])
         if base.exists():
             res = "a chatbot with the same id already exists"
             code = 409
         else:
-            base.mkdir(parents=True)
+            base.mkdir(parents=True, exist_ok=True)
 
             for folder in ['data/iob', 'models/', '../elasticsearch']:
                 path = base / Path(folder)
-                path.mkdir(parents=True)
+                path.mkdir(parents=True, exist_ok=True)
 
             chatbot.update({
                 'running': False,
@@ -34,20 +34,20 @@ def chatbot_post(chatbot):  # noqa: E501
             })
 
             # Write Chatbot Manager level info
-            path = base.parent / Path('info.json')
+            path = util.get_info_file(chatbot['id'], glob=True)
             with path.open('w') as info_file:
-                json.dump(chatbot, info_file)
+                json.dump(chatbot, info_file, indent=4)
 
             # Write Chatbot level info
-            path = base / Path('info.json')
+            path = util.get_info_file(chatbot['id'], glob=False)
             with path.open('w') as info_file:
                 json.dump({
                     'id': chatbot['id'],
                     'description': chatbot['description'],
                     'created': chatbot['created'],
-                }, info_file)
+                }, info_file, indent=4)
 
-            create_docker_compose(chatbot['id'])
+            util.create_docker_compose(chatbot['id'])
 
             res = ChatbotFullInfo(**chatbot)
             code = 201
