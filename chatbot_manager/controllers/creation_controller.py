@@ -59,10 +59,3 @@ def chatbot_post(chatbot):  # noqa: E501
         code = 500
 
     return res, code
-
-
-chatbot = {
-    'id': 'botcin',
-    'description': 'A chatbot for the students at CIn UFPE.'
-    }
-print(chatbot_post(chatbot))

@@ -16,7 +16,7 @@ def chatbot_id_get(id):  # noqa: E501
     """
     try:
         base = get_base_path(id)
-        print(base)
+        #print(base)
         if not base.exists():
             res = "chatbot not found"
             code = 404
