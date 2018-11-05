@@ -186,3 +186,6 @@ def update_info_file(path, **kwargs):
 
     with path.open('w') as file:
         json.dump(info, file, indent=4)
+
+
+#print(get_base_path('botcin').parent)

@@ -18,7 +18,7 @@ def main():
     app = connexion.App(__name__, specification_dir='./swagger/')
     app.app.json_encoder = encoder.JSONEncoder
     app.add_api('swagger.yaml', arguments={'title': 'Simple Inventory API'})
-    app.run(port=get_port())
+    app.run(port=55555, debug=True)
 
 
 if __name__ == '__main__':

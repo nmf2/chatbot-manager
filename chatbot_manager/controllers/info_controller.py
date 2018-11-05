@@ -16,7 +16,7 @@ def chatbot_id_get(id):  # noqa: E501
     """
     try:
         base = get_base_path(id)
-        #print(base)
+        # print(base)
         if not base.exists():
             res = "chatbot not found"
             code = 404
@@ -24,9 +24,13 @@ def chatbot_id_get(id):  # noqa: E501
             path = base / Path('info.json')
             with path.open('r') as info_file:
                 chatbot = json.load(info_file)
-            res = ChatbotFullInfo(**chatbot)
+                # print('la')
+                # print(chatbot)
+                chatbot.update({'running': False})
+                res = ChatbotFullInfo(**chatbot)
             code = 200
     except:
+        #raise
         res = "unknown error, contact developer"
         code = 500
     return res, code
@@ -46,6 +50,7 @@ def chatbot_id_status_get(id):  # noqa: E501
     res, code = chatbot_id_get(id)
     if type(res) == ChatbotFullInfo:
         info = res.to_dict()
+        # print(info)
         res = {'running': info['running']}
 
     return res, code

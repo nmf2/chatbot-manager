@@ -17,10 +17,13 @@ def chatbot_post(chatbot):  # noqa: E501
     """
     try:
         base = util.get_base_path(chatbot['id'])
+        ##print(base)
         if base.exists():
+            ##print('exists')
             res = "a chatbot with the same id already exists"
             code = 409
         else:
+            ##print('create')
             base.mkdir(parents=True, exist_ok=True)
 
             for folder in ['data/iob', 'models/', '../elasticsearch']:
@@ -55,7 +58,11 @@ def chatbot_post(chatbot):  # noqa: E501
         res = "Bad body input"
         code = 400
     except:
+        ##raise
         res = "unkown error, contact developer"
         code = 500
 
     return res, code
+
+
+#print(chatbot_post({'id': 'botcin'}))

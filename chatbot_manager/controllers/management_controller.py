@@ -54,9 +54,9 @@ def chatbot_id_status_post(id, body):  # noqa: E501
         if not base.exists():
             res = "Chatbot Not Found"
             code = 404
-        elif body["running"] is True:  
+        elif body["running"] is True: 
             path = str(base.parent) + '/docker-compose.yml'
-            #print("docker-compose up -d -f {}".format(path).split())
+            # print("docker-compose -f {} up -d ".format(path).split())
             subprocess.call("docker-compose -f {} up -d".format(path).split())
 
             bot, es = _get_containers(id)
